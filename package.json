@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm test",
     "dev": "nodemon src/server.ts",
-    "start": "npm start",
+    "start": "nodemon src/server.ts",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports"
   },
   "author": "Daniel Candido",
