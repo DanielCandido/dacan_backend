@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { FolderInterface } from '../interfaces'
 
 const FolderSchema = new Schema({
   name: String,
@@ -8,4 +9,4 @@ const FolderSchema = new Schema({
   timestamps: true
 })
 
-export default model('Folder', FolderSchema)
+export default model<FolderInterface>('Folder', FolderSchema)

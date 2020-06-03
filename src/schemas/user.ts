@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose'
+import { UserInterface } from '../interfaces'
 
 const UserSchema = new Schema({
   email: String,
@@ -10,4 +11,4 @@ const UserSchema = new Schema({
   timestamps: true
 })
 
-export default model('User', UserSchema)
+export default model<UserInterface>('User', UserSchema)

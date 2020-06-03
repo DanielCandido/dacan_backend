@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import { Storage } from '@google-cloud/storage'
 import User from '../../schemas/user'
 import jwtHelper from '../../util/jwt-helper'
+import { UserInterface } from '../../interfaces'
 const storage = new Storage({
   keyFilename: './private-key.json',
   projectId: 'workers-storage-258100'
@@ -37,7 +38,6 @@ class UserController {
 
   public async getUserByEmail (req: Request, res: Response): Promise<Response> {
     try {
-      console.log(req.body.email)
       const user = User.findOne().where('email').equals(req.body.email)
       user.select('email firstname lastname _id')
 
@@ -53,14 +53,12 @@ class UserController {
 
   public async login (req: Request, res: Response): Promise<Response> {
     try {
-      console.log(req.body)
       const user = User.findOne({ email: req.body.email })
-      user.exec(async (err, us) => {
+      user.exec(async (err, us: UserInterface) => {
         if (err) {
           return res.status(401).json({ message: 'Usuário Invalido' })
         } else if (us != null) {
           const match = await bcrypt.compare(req.body.password, us.password)
-          console.log(match)
           if (!match) {
             return res.status(401).json({ message: 'Senha incorreta' })
           } else {
@@ -82,7 +80,6 @@ class UserController {
 
   public async loginFacebook (req: Request, res: Response): Promise<Response> {
     try {
-      console.log(req.body)
       req.body.password = await bcrypt.hash(req.body.password, saltRounds)
       await User.countDocuments({ email: req.body.email }, async (err, result) => {
         if (err) {

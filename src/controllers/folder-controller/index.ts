@@ -1,14 +1,17 @@
 import { Request, Response } from 'express'
 import Folder from '../../schemas/folders'
 import jwtHelper from '../../util/jwt-helper'
+import { TokenInterface, FolderInterface } from '../../interfaces'
+
+let token: TokenInterface
 
 class FolderController {
   public async createFolder (req: Request, res: Response): Promise<Response> {
     try {
-      const folder = req.body
-      const token = jwtHelper.decode(req.headers.authorization)
+      const folder = req.body as FolderInterface
+      token = jwtHelper.decode(req.headers.authorization) as TokenInterface
 
-      const folders = await Folder.findOne().where('name', 'userId').equals(folder.name, token.bucket)
+      const folders = await Folder.findOne({ name: folder.name, userId: token.bucket })
 
       if (folders == null) {
         const folderDB = await Folder.create(folder)
