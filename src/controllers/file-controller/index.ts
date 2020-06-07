@@ -6,9 +6,10 @@ import jwtHelper from '../../util/jwt-helper'
 
 // InterfaceToken
 import { TokenInterface } from '../../interfaces'
+const privateKey = process.env.PRIVATE_KEY
 
 const storage = new Storage({
-  keyFilename: './private-key.json',
+  keyFilename: privateKey,
   projectId: 'workers-storage-258100'
 })
 

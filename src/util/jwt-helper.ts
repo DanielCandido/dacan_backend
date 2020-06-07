@@ -8,7 +8,7 @@ class JWTHelper {
     const privateKey = fs.readFileSync(strings.keyMainPath + 'private.key', 'utf8')
 
     return jwt.sign(payload, privateKey, {
-      expiresIn: '1m'
+      expiresIn: '60m'
     })
   }
 

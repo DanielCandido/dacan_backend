@@ -19,5 +19,7 @@ router.post('/loginFacebook', UserController.loginFacebook)
 
 // FOLDER CONTROLLER
 router.post('/createFolder', FolderController.createFolder)
+router.get('/getFolders', FolderController.getFolders)
+router.post('/deleteFolder', FolderController.deleteFolder)
 
 export default router

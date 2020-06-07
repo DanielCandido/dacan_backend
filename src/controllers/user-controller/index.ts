@@ -4,8 +4,10 @@ import { Storage } from '@google-cloud/storage'
 import User from '../../schemas/user'
 import jwtHelper from '../../util/jwt-helper'
 import { UserInterface } from '../../interfaces'
+const privateKey = process.env.PRIVATE_KEY
+
 const storage = new Storage({
-  keyFilename: './private-key.json',
+  keyFilename: privateKey,
   projectId: 'workers-storage-258100'
 })
 const saltRounds = 12
